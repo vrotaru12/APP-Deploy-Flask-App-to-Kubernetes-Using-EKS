@@ -112,13 +112,13 @@ docker run -p 80:8080 --env-file=env_file jwt-api-test
 6. To use the endpoints, you can use the same curl commands as before, except using port 80 this time:
 
 To try the /auth endpoint, use the following command:
-'''
+```
 export TOKEN=`curl -d '{"email":"test@test.com","password":"test"}' -H "Content-Type: application/json" -X POST localhost:80/auth  | jq -r '.token'`
-'''
+```
 To try the /contents endpoint which decrypts the token and returns its content, run:
-'''
+```
 curl --request GET 'http://127.0.0.1:80/contents' -H "Authorization: Bearer ${TOKEN}" | jq .
-'''
+```
 You should see the email that you passed in as one of the values.
 
 
@@ -144,22 +144,22 @@ The next steps are provided to quickly set up an IAM role for your cluster.
 1. Create an IAM role that CodeBuild can use to interact with EKS:
    Set an environment variable `ACCOUNT_ID` to the value of your AWS account id. You can do this with awscli:
 
-   '''
+   ```
    `ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)`
-   '''
+   ```
    Create a role policy document that allows the actions "eks:Describe*" and "ssm:GetParameters". 
    You can do this by setting an environment variable with the role policy:
-   '''
+  ```
    TRUST="{ \"Version\": \"2012-10-17\", \"Statement\": [ { \"Effect\": \"Allow\", \"Principal\": { \"AWS\": \"arn:aws:iam::${ACCOUNT_ID}:root\" }, \"Action\": \"sts:AssumeRole\" } ] }"
-   '''
+   ```
    Create a role named 'UdacityFlaskDeployCBKubectlRole' using the role policy document:
-   '''
+  ```
    aws iam create-role --role-name UdacityFlaskDeployCBKubectlRole --assume-role-policy-document "$TRUST" --output text --query 'Role.Arn'
-   ''
+  ```
    Create `tmp` directory and add in a role policy document ,called `iam-role-policy.file` that also allows the actions "eks:Describe*" and "ssm:GetParameters". You can create the document in your tmp directory:
-   '''
+   ```
    echo '{ "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", "Action": [ "eks:Describe*", "ssm:GetParameters" ], "Resource": "*" } ] }' > ./iam-role-policy   
-   '''
+  ```
    Attach the policy to the `UdacityFlaskDeployCBKubectlRole`. You can do this using awscli:
 
    ```
