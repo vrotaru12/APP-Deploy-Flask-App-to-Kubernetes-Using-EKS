@@ -216,13 +216,13 @@ You should now be ready to deploy your application using CodePipeline and CodeBu
 1. Create repository on Github and add the project over there 
 2.  Fill the `ci-cd-codepipeline.cfn.yml` file:
 fill the `Default` key with your own information:
-
+```
 --> Your EksClusterName
 --> Your GitSourceRepo
 --> Your GitBranch
 --> Your GitHubUser
 --> Your KubectlRoleName
-
+```
 3. Create the `CloudFormation` stack on aws.amazon.com:
 Select the correct location
  ---> go to https://eu-west-2.console.aws.amazon.com/cloudformation/home?region=eu-west-2#/
