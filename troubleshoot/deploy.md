@@ -4,9 +4,10 @@
 The following steps describe how to run the Flask API locally with the standard Flask server, 
 so that you can test endpoints before you containerize the app:
 1. Install python dependencies. These dependencies are kept in a requirements.txt file. To install them, use pip:
-   '''
+
+   ```
    pip install -r requirements.txt
-   '''
+   ```
 2. Set up the environment. You do not need to create an env_file to run locally but you do need the following two variables available in your terminal environment. The following environment variable is required:
 
 `JWT_SECRET` - The secret used to make the JWT, for the purpose of this course the secret can be any string.
@@ -14,33 +15,33 @@ The following environment variable is optional:
 
 `LOG_LEVEL` - The level of logging. This will default to 'INFO', but when debugging an app locally, you may want to set it to 'DEBUG'. To add these to your terminal environment, run the 2 lines below.
 
-'''
+```
 export JWT_SECRET='myjwtsecret'
 export LOG_LEVEL=DEBUG
-'''
+```
 3. Run the app using the Flask server, from the top directory, run:
-'''
+```
  python main.py
-'''
+```
 
 4. To try the API endpoints, open a new shell and run the following commands, replacing `EMAIL` and `PASSWORD` with any values:
 
 To try the /auth endpoint, use the following command:
 
-'''
+```
 export TOKEN=`curl -d '{"email":"<EMAIL>","password":"<PASSWORD>"}' -H "Content-Type: application/json" -X POST localhost:8080/auth  | jq -r '.token'`
-'''
+```
 
 This calls the endpoint 'localhost:8080/auth' with the {"email":"<EMAIL>","password":"<PASSWORD>"} as the message body. The return value is a JWT token based on the secret you supplied. We are assigning that secret to the environment variable 'TOKEN'. To see the JWT token, run:
 
-'''
+```
 echo $TOKEN
-'''
+```
 
 To try the /contents endpoint which decrypts the token and returns its content, run:
-'''
+```
 curl --request GET 'http://127.0.0.1:8080/contents' -H "Authorization: Bearer ${TOKEN}" | jq .
-'''
+```
 You should see the email that you passed in as one of the values.
 
 
