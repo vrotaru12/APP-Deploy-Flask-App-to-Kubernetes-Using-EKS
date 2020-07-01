@@ -9,10 +9,10 @@ so that you can test endpoints before you containerize the app:
    '''
 2. Set up the environment. You do not need to create an env_file to run locally but you do need the following two variables available in your terminal environment. The following environment variable is required:
 
-JWT_SECRET - The secret used to make the JWT, for the purpose of this course the secret can be any string.
+`JWT_SECRET` - The secret used to make the JWT, for the purpose of this course the secret can be any string.
 The following environment variable is optional:
 
-LOG_LEVEL - The level of logging. This will default to 'INFO', but when debugging an app locally, you may want to set it to 'DEBUG'. To add these to your terminal environment, run the 2 lines below.
+`LOG_LEVEL` - The level of logging. This will default to 'INFO', but when debugging an app locally, you may want to set it to 'DEBUG'. To add these to your terminal environment, run the 2 lines below.
 
 '''
 export JWT_SECRET='myjwtsecret'
